@@ -1,0 +1,213 @@
+<html>
+		
+	<head>
+		<style>
+
+			body {
+				margin: auto;
+				max-width: 600px;
+			}
+
+			canvas {
+				width: 500px;
+				height: 500px;
+				border: 1px solid black;
+			}
+		</style>
+	</head>
+
+
+	<body>
+		<center>
+			<h1>Last Passage Percolation on the Grid</h1>
+			<canvas id="canvas" width="1000" height="1000"></canvas>
+			<br><br>
+			<button onclick="run()">run x1</button>
+			<button onclick="run_times(100)">run x100</button>
+			<button onclick="run_times(1000)">run x1000</button>
+		</center>
+	</body>
+
+	<script>
+
+		let canvas = document.getElementById("canvas");
+		let ctx = canvas.getContext('2d');
+
+		let size = canvas.width;
+
+		let n = 8;
+
+		function rand() {
+			return Math.random();
+		}
+
+		// function build_grid() {
+
+			// let ret = {};
+			// let curr = ret;
+
+			// for (let r = 0; r < n - 1; r++) {
+			// 	if (r < n - 1) curr['down'] = {'w':rand(), 'n':{'up':curr}};
+			// 	curr['right'] = {'w':rand(), 'n':{'left':curr}};
+			// 	curr = curr['down']['n'];
+			// }
+
+			// let curr_base = ret['right']['n'];
+			// for (let c = 1; c < n - 1; c++) {
+			// 	curr = curr_base;
+			// 	for (let r = 0; r < n; r++) {
+			// 		if (r < n - 1) curr['down'] = {'w': rand(), "n":curr['left']['down']['n']['right']};
+			// 		curr['right'] = {'w':rand(), "n":{'left':curr}};
+			// 		curr = curr['down']['n']
+			// 	}
+			// 	curr_base = curr_base['right']['n'];
+			// }
+
+			// return ret;
+
+			// let edges = [];
+			// for (let i = 0; i < 2 * n + 1; i++) {
+			// 	edges.push([]);
+			// 	let t = i % 2 == 0 ? n : n + 1;
+			// 	for (let j = 0; j < t; j++) {
+			// 		edges[i].push({"w": r()});
+			// 	}
+			// }
+
+			// let nodes = {};
+			// for (let r = 0; r < n + 1; r++) {
+			// 	for (let c = 0; c < n + 1; c++) {
+			// 		nodes[r * n + c] = {};
+			// 		let N = nodes[r * n + c];
+
+			// 		let U = r > 0 ? edges[2 * r - 1][c] : null;
+			// 		let R = c < n ? edges[2 * r][c + 1] : null;
+			// 		// let D = r < n ? edges[2 * r + 1][c] : null;
+			// 		// let L = c > 0 ? edges[2 * r][c] : null;
+
+			// 		console.log(U, R);
+
+			// 		if (r > 0){
+			// 			U['fwd'] = nodes[(r - 1) * n + c];
+			// 			U['back'] = N;
+			// 		}
+			// 		if (c < n) {
+			// 			R['fwd'] = nodes[r * n + (c + 1)];
+			// 			R['back'] = N;
+			// 		}
+
+			// 		N["U"] = U;
+			// 		N["R"] = R;
+			// 		// N["D"] = D;
+			// 		// N["L"] = L;
+
+			// 	}
+			// }
+		// }
+
+		// function factorial(k) {
+		// 	if (k == 0) {
+		// 		return 1
+		// 	}
+		// 	return k * factorial(k - 1);
+		// }
+
+		// function num_paths() {
+		// 	return factorial(2 * n) / (factorial(n) ** 2);
+		// }
+
+
+		function get_edges() {
+			return [
+				// horizontal = 0
+				[...Array(n + 1)].map(x => [...Array(n)].map(x => rand())),
+				// vertical = 1
+				[...Array(n)]
+				.map(x => [...Array(n + 1)].map(x => rand()))
+			]
+		}
+
+
+		function get_all_paths() {
+			return [...Array(4**n).keys()]
+				.map(x => x.toString(2))
+				.filter(w => (w.match(/1/g) || []).length == n)
+				.map(y => "0".repeat(2 * n - y.length) + y)
+				.map(z => z.split("").map(x => Number(x)));
+		}
+
+		function get_path_weight(edges, path) {
+			let weight = 0;
+			let curr = [0, 0];
+			for (let i = 0; i < path.length; i++) {
+				weight += edges[path[i]][curr[1]][curr[0]];
+				curr[path[i]] += 1;
+			}
+			return weight;
+		}
+
+		function run() {
+			// // clear
+			// ctx.clearRect(0, 0, size, size);
+
+			// get edges
+			let edges = get_edges();
+			let path_weights = get_all_paths()
+				.map(x => [x, get_path_weight(edges, x)])
+				.sort((x, y) => x[1] - y[1]);
+
+			// draw path
+			let i = path_weights.length - 1;
+			ctx.strokeStyle = "green";
+			let path = path_weights[i][0];
+			ctx.lineWidth = 1;
+			let curr = [0, 0];
+			ctx.beginPath();
+			ctx.moveTo(0, 0);
+			for (let j = 0; j < 2 * n; j++) {
+				curr[path[j]] += 1;
+				ctx.lineTo(
+					(curr[0] + (Math.random() - 0.5) / 2.5) * size / n, 
+					(curr[1] +( Math.random() - 0.5) / 2.5) * size / n
+				);
+			}
+			ctx.stroke();
+		}
+
+		function run_times(k) {
+			let count = 0;
+			let id = setInterval(function() {
+				if (count >= k) {
+					clearInterval(id);
+				}
+				run();
+				count += 1;
+			}, 100);
+		}
+
+
+		// grid
+		ctx.strokeStyle = "black";
+		ctx.lineWidth = 2;
+		for (let i = 0; i < n + 1; i++) {
+			ctx.beginPath();
+			ctx.moveTo(0, i * size / n);
+			ctx.lineTo(size, i * size / n);
+			ctx.stroke();
+			ctx.beginPath();
+			ctx.moveTo(i * size / n, 0);
+			ctx.lineTo(i * size / n, size);
+			ctx.stroke();
+		}
+		
+
+
+	</script>
+</html>
+
+
+
+
+
+
+
