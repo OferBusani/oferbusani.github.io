@@ -9,7 +9,17 @@
       .paper-list {
         font-size: 0.9rem;
       }
+    figure {
+      margin: 0;                 /* remove default margins */
+      text-align: center;
+    }
+    figcaption {
+      margin-top: 6px;
+      font-style: italic;
+      color: #555;
+    }
     </style>
+	<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
   </head>
   <body>
     <div class="container mt-3">
@@ -51,8 +61,65 @@
 
       <div class="row mt-4">
         <div class="col-md-12">
-          <p><font size="+2">I am a lecturer at the university of Edinburgh. I am mainly interested in probabilistic models that have strong connections to statistical physics.
-              <br> In particular, I am interested in the Kardar-Parisi-Zhang (KPZ) universality class where one can find random growth processes, interacting particle systems, random polymers, stochastic PDEs and many other interesting models.</font></p>
+          <p><font size="+2">I am a Lecturer (assistant professor) at the university of Edinburgh. I am mainly interested in probabilistic models that have strong connections to statistical physics.
+              <br> In particular, I am interested in the Kardar-Parisi-Zhang (KPZ) universality class where one can find random growth processes, interacting particle systems, random polymers, stochastic PDEs and many other interesting models.
+			  <br> <br> <b>I am looking for a PhD student starting starting in 2026–27, if you are interested please apply <a href="https://postgraduate.degrees.ed.ac.uk/index.php?r=site/view&id=515">here.</b></a></font></p>
+			  <br>
+				<p><font size="+2">To get a better feel for the type of problems I’m interested in, let us look at a very classical example: the corner growth model (CGM). We place ourselves on the lattice \(\mathbb{Z}^2\), rotated by \(45^\circ\).
+ At time zero, we declare some sites to be infected (blue vertices) while the rest remain healthy (black vertices). Each site of the lattice is assigned a random weight, independent and identically distributed. The dynamics are simple to describe: a site becomes eligible for infection (the purple vertices) once both of the sites directly below it  are already infected. At that moment, we wait for a period of time equal to its random weight, after which the site itself flips from healthy to infected. This iterative mechanism drives the infection forward and produces the evolving random growth that we want to study.  </a></font></p>
+			 
+			 <figure style="text-align: center;">
+  <img src="cgmIIust.jpg" alt="The CGM model" width="800">
+  <figcaption>The corner growth model.</figcaption>
+</figure>
+			  
+			  <p><font size="+2">A few natural questions arise at this point. Starting from a given infected set, should we indeed see the emergence of a macroscopic shape (shown below in red) as time grows? What can we say about the properties of this shape? Beyond that, what can be said about the scale of the fluctuations around it — in other words, how closely must we zoom in (what are the relevant dimensions of the rectangle below) in order to observe non-trivial random behaviour? </a></font></p>
+			  
+	<div class="row align-items-start g-3">
+  <!-- Left: figure -->
+  <div class="col-lg-7">
+    <figure class="text-center m-0">
+      <img src="CGMscale.png" alt="Simulation of CGM" class="img-fluid">
+      <figcaption class="text-muted mx-auto" style="width: 500px;">
+       A Python simulation of the corner growth model (CGM) with infected boundary conditions at time \(t=1000\). 
+	   The red curve shows the macroscopic interface that emerges when the system is observed on a large scale.
+      </figcaption>
+    </figure>
+  </div>
+
+  <!-- Right: simulation -->
+  <div class="col-lg-5">
+    <h3>Corner Growth Model Simulation</h3>
+    <div class="controls mb-2">
+      <label class="me-3">
+        Scale:
+        <input id="sizeSlider" type="range" min="10" max="100" step="5" value="30">
+        <span id="sizeVal">30</span>
+      </label>
+      <label class="me-3">
+        Speed:
+        <input id="speedSlider" type="range" min="50" max="400" step="25" value="150">
+        <span id="speedVal">150 ms</span>
+      </label>
+      <button id="runBtn" class="btn btn-sm btn-primary me-2">Run</button>
+      <button id="pauseBtn" class="btn btn-sm btn-secondary me-2">Pause</button>
+      <button id="newWeightsBtn" class="btn btn-sm btn-outline-secondary">New weights</button>
+    </div>
+
+   <!-- Canvas + caption -->
+<figure class="text-center m-0" style="max-width: 400px; margin: 0 auto;">
+  <div class="ratio ratio-1x1">
+    <canvas id="cgmCanvas" width="400" height="400" style="width:100%; height:100%;"></canvas>
+  </div>
+  <figcaption class="mt-5 text-muted">CGM simulation, give it a go!</figcaption>
+</figure>
+  </div>
+</div>
+
+<!-- Load simulation script -->
+<script src="cgm-simulation.js"></script>
+
+			  
         </div>
       </div>
 
@@ -80,6 +147,11 @@
           <li><a href="https://people.maths.bris.ac.uk/~di18476/FDFPE.pdf">Finite dimensional Fokker-Planck equations for continuous time random walk limits</a> <span style="color:rgb(151,30,4)"> Stochastic Processes and their Applications</span>. 2017</li><br>
           <li><a href="https://people.maths.bris.ac.uk/~di18476/ACTRWL.pdf" style="color:rgb(153, 0, 0)">Aging Uncoupled Continuous Time Random Walk Limits</a> <span style="color:rgb(151,30,4)"> Electronic Journal of Probability</span>. 2016</li>
         </ol>
+		<h2>Contributions</h2>
+		<ul>
+  <li> On the number of infinite geodesics in last passage percolation models. To appear in 'From Particle Systems to Partial Differential Equations'. Proceedings of PSPD XII </li>
+</ul>
+		
       </div>
     </div>
   </body>
