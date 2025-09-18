@@ -1,159 +1,266 @@
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Ofer Busani's homepage</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <style>
-      .paper-list {
-        font-size: 0.9rem;
-      }
-    figure {
-      margin: 0;                 /* remove default margins */
-      text-align: center;
-    }
-    figcaption {
-      margin-top: 6px;
-      font-style: italic;
-      color: #555;
-    }
-    </style>
-	<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-  </head>
-  <body>
-    <div class="container mt-3">
-      <div class="row">
-        <div class="col-sm-4">
-          <figure>
-            <img class="img-fluid" src="me.jpeg" alt="Picture of me" />
-            <figcaption></figcaption>
-          </figure>
-        </div>
-        <div class="col-sm-8">
-<h1 class="mt-4">Ofer Busani's homepage</h1>
-          <table class="mt-5">
-            <tbody>
-              <tr>
-                <th class="float-end">Address: </th>
-                <td class="ps-1">
-                  5321, James Clerk Maxwell Building<br />
-                  Peter Guthrie Tait Road<br />
-                  Edinburgh, EH9 3FD
-                </td>
-              </tr>
-              <tr>
-                <td class="mt-5"></td>
-              </tr>
-              <tr>
-                <th class="float-end">E-mail:</th>
-                <td class="ps-1">
-                  obusani (at) ed.ac.uk<br />
-                  ofer659 (at) gmail.com
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <br>
-          <p><a href="MyCV.pdf">CV</a></p>
-        </div>
-      </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Ofer Busani's homepage</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-      <div class="row mt-4">
-        <div class="col-md-12">
-          <p><font size="+2">I am a Lecturer (Assistant Professor) at the university of Edinburgh. I am mainly interested in probabilistic models that have strong connections to statistical physics.
-              <br> In particular, I am interested in the Kardar-Parisi-Zhang (KPZ) universality class where one can find random growth processes, interacting particle systems, random polymers, stochastic PDEs and many other interesting models.
-			  <br> <br> <b>I am looking for a PhD student starting starting in 2026–27, if you are interested please apply <a href="https://postgraduate.degrees.ed.ac.uk/index.php?r=site/view&id=515">here.</b></a></font></p>
-			  <br>
-				<p><font size="+2">To get a better feel for the type of problems I’m interested in, let us look at a very classical example: the corner growth model (CGM). We place ourselves on the lattice \(\mathbb{Z}^2\), rotated by \(45^\circ\).
- At time zero, we declare some sites to be infected (blue vertices) while the rest remain healthy (black vertices). Each site of the lattice is assigned a random weight, independent and identically distributed. The dynamics are simple to describe: a site becomes eligible for infection (the purple vertices) once both of the sites directly below it  are already infected. At that moment, we wait for a period of time equal to its random weight, after which the site itself flips from healthy to infected. This iterative mechanism drives the infection forward and produces the evolving random growth that we want to study.  </a></font></p>
-			 
-			 <figure style="text-align: center;">
-  <img src="cgmIIust.jpg" alt="The CGM model" width="800">
-  <figcaption>The corner growth model.</figcaption>
-</figure>
-			  
-			  <p><font size="+2">A few natural questions arise at this point. Starting from a given infected set, should we indeed see the emergence of a macroscopic shape (shown below in red) as time grows? What can we say about the properties of this shape? Beyond that, what can be said about the scale of the fluctuations around it — in other words, how closely must we zoom in (what are the relevant dimensions of the rectangle below) in order to observe non-trivial random behaviour? </a></font></p>
-			  
-	<div class="row align-items-start g-3">
-  <!-- Left: figure -->
-  <div class="col-lg-7">
-    <figure class="text-center m-0">
-      <img src="CGMscale.png" alt="Simulation of CGM" class="img-fluid">
-      <figcaption class="text-muted mx-auto" style="width: 500px;">
-       A Python simulation of the corner growth model (CGM) with infected boundary conditions at time \(t=1000\). 
-	   The red curve shows the macroscopic interface that emerges when the system is observed on a large scale.
-      </figcaption>
-    </figure>
+  <!-- Bootstrap 5.3.3 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+        crossorigin="anonymous">
+
+  <style>
+    .paper-list { font-size: 0.95rem; }
+    figure { margin: 0; text-align: center; }
+    figcaption { margin-top: 6px; font-style: italic; color: #555; }
+    .tab-pane { padding-top: 1rem; padding-bottom: 7rem; } /* comfy bottom space */
+    .nav-tabs .nav-link.active { font-weight: 600; }
+
+    /* Fallback styling so tabs are visible even if Bootstrap CSS fails */
+    .nav-tabs { display: flex; gap: .5rem; border-bottom: 1px solid #dee2e6; }
+    .nav-tabs .nav-link { background: #f8f9fa; border: 1px solid #dee2e6; border-bottom: none;
+      padding: .5rem .75rem; border-top-left-radius: .5rem; border-top-right-radius: .5rem; }
+    .nav-tabs .nav-link.active { background: #fff; }
+  </style>
+
+  <!-- MathJax for equations -->
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+  <!-- HEADER with name + tabs (tabs on top-right) -->
+  <div class="container-fluid border-bottom py-2">
+    <div class="d-flex justify-content-between align-items-center">
+      <h1 class="h4 m-0">Ofer Busani's homepage</h1>
+      <ul class="nav nav-tabs" id="siteTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="home-tab" data-bs-toggle="tab"
+                  data-bs-target="#home" type="button" role="tab"
+                  aria-controls="home" aria-selected="true">Home</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="sims-tab" data-bs-toggle="tab"
+                  data-bs-target="#sims" type="button" role="tab"
+                  aria-controls="sims" aria-selected="false">What is KPZ?</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="pubs-tab" data-bs-toggle="tab"
+                  data-bs-target="#pubs" type="button" role="tab"
+                  aria-controls="pubs" aria-selected="false">Publications</button>
+        </li>
+      </ul>
+    </div>
   </div>
 
-  <!-- Right: simulation -->
-  <div class="col-lg-5">
-    <h3>Corner Growth Model Simulation</h3>
-    <div class="controls mb-2">
-      <label class="me-3">
-        Scale:
-        <input id="sizeSlider" type="range" min="10" max="100" step="5" value="30">
-        <span id="sizeVal">30</span>
-      </label>
-      <label class="me-3">
-        Speed:
-        <input id="speedSlider" type="range" min="50" max="400" step="25" value="150">
-        <span id="speedVal">150 ms</span>
-      </label>
-      <button id="runBtn" class="btn btn-sm btn-primary me-2">Run</button>
-      <button id="pauseBtn" class="btn btn-sm btn-secondary me-2">Pause</button>
-      <button id="newWeightsBtn" class="btn btn-sm btn-outline-secondary">New weights</button>
+  <div class="container mt-3">
+    <div class="row">
+      <div class="col-sm-4">
+        <figure>
+          <img class="img-fluid" src="me.jpeg" alt="Picture of me" />
+          <figcaption>Me (up to translation of hairline and a splash of grey).</figcaption>
+        </figure>
+      </div>
+      <div class="col-sm-8">
+        <h1 class="mt-4"></h1>
+        <table class="mt-4">
+          <tbody>
+            <tr>
+              <th class="pe-2 text-end align-top">Address:</th>
+              <td>
+                5321, James Clerk Maxwell Building<br />
+                Peter Guthrie Tait Road<br />
+                Edinburgh, EH9 3FD
+              </td>
+            </tr>
+            <tr><td class="py-2"></td></tr>
+            <tr>
+              <th class="pe-2 text-end align-top">E-mail:</th>
+              <td>
+                obusani (at) ed.ac.uk<br />
+                ofer659 (at) gmail.com
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="mt-3"><a href="MyCV.pdf" target="_blank" rel="noopener">CV</a></p>
+      </div>
     </div>
 
-   <!-- Canvas + caption -->
-<figure class="text-center m-0" style="max-width: 400px; margin: 0 auto;">
-  <div class="ratio ratio-1x1">
-    <canvas id="cgmCanvas" width="400" height="400" style="width:100%; height:100%;"></canvas>
-  </div>
-  <figcaption class="mt-5 text-muted">CGM simulation, give it a go!</figcaption>
-</figure>
-  </div>
-</div>
+    <!-- TAB CONTENT -->
+    <div class="tab-content" id="siteTabsContent">
+      <!-- HOME -->
+      <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+        <div class="row mt-3">
+          <div class="col-md-12">
+            <p style="font-size: 1.25rem;">
+              I am a Lecturer (assistant professor) at the University of Edinburgh. I am mainly interested in probabilistic models that have strong connections to statistical physics.
+              <br> In particular, I am interested in the Kardar–Parisi–Zhang (KPZ) universality class where one can find random growth processes, interacting particle systems, random polymers, stochastic PDEs and many other interesting models.
+            </p>
+            <p style="font-size: 1.25rem;">
+              <b>I am looking for a PhD student starting in 2026–27. If you are interested please apply
+                <a href="https://postgraduate.degrees.ed.ac.uk/index.php?r=site/view&id=515" target="_blank" rel="noopener">here</a>
+                and mention in your application that you would like to work with me. The position will be funded by the ERC grant <em>UnivKPZ</em>. The student will work on central open problems in the KPZ class.</b>
+            </p>
+          </div>
+        </div>
 
-<!-- Load simulation script -->
-<script src="cgm-simulation.js"></script>
-
-			  
+        <!-- PhD students (inside HOME tab) -->
+        <div class="row mt-4">
+          <div class="col-md-12">
+            <h2 class="h5 mb-2">PhD students</h2>
+            <p class="fs-5 mb-0">Zhicheng Zheng — PhD (2025)</p>
+          </div>
         </div>
       </div>
 
-      <hr>
-      <div class="row">
-        <h2>Papers and Preprints</h2>
+      <!-- WHAT IS KPZ? -->
+      <div class="tab-pane fade" id="sims" role="tabpanel" aria-labelledby="sims-tab">
+        <div class="row mt-2">
+          <div class="col-md-12">
+            <p style="font-size: 1.25rem;">
+              To get a better feel for the type of problems I’m interested in, let us look at a very classical example:
+              the corner growth model (CGM). We place ourselves on the lattice \(\mathbb{Z}^2\), rotated by \(45^\circ\).
+              At time zero, we declare some sites to be infected (blue vertices) while the rest remain healthy (black vertices).
+              Each site of the lattice is assigned a random weight, such that the weights are independent and identically
+              distributed across the lattice. The dynamics are simple to describe: a site becomes eligible for infection
+              (the purple vertices) once both of the sites directly below it are already infected. At that moment, we wait
+              for a period of time equal to its random weight, after which the site itself flips from healthy to infected.
+              This iterative mechanism drives the infection forward and produces the evolving random growth that we want to study.
+            </p>
+
+            <figure class="my-3">
+              <img src="cgmIIust.jpg" alt="The CGM model" class="img-fluid" style="max-width: 800px;">
+              <figcaption>The corner growth model.</figcaption>
+            </figure>
+
+            <p style="font-size: 1.25rem;" class="mt-4">
+              A few natural questions arise at this point. Starting from a given infected set, should we indeed see the
+              emergence of a macroscopic shape (shown below in red) as time grows? What can we say about the properties
+              of this shape? Beyond that, what can be said about the scale of the fluctuations around it — in other words,
+              how closely must we zoom in (what are the relevant dimensions of the rectangle below) in order to observe
+              non-trivial random behaviour?
+            </p>
+          </div>
+        </div>
+
+        <div class="row align-items-start g-3 mt-2">
+          <div class="col-lg-7">
+            <figure class="text-center m-0">
+              <img src="CGMscale.png" alt="Simulation of CGM" class="img-fluid">
+              <figcaption class="text-muted mx-auto" style="max-width: 500px;">
+                A Python simulation of the corner growth model (CGM) with infected boundary conditions at time \(t=1000\).
+                The red curve shows the macroscopic interface that emerges when the system is observed on a large scale.
+              </figcaption>
+            </figure>
+          </div>
+
+          <div class="col-lg-5">
+            <h3>Corner Growth Model Simulation</h3>
+            <div class="controls mb-2">
+              <label class="me-3">
+                Scale:
+                <input id="sizeSlider" type="range" min="10" max="100" step="5" value="30">
+                <span id="sizeVal">30</span>
+              </label>
+              <label class="me-3">
+                Speed:
+                <input id="speedSlider" type="range" min="50" max="400" step="25" value="150">
+                <span id="speedVal">150 ms</span>
+              </label>
+              <button id="runBtn" class="btn btn-sm btn-primary me-2">Run</button>
+              <button id="pauseBtn" class="btn btn-sm btn-secondary me-2">Pause</button>
+              <button id="newWeightsBtn" class="btn btn-sm btn-outline-secondary">New weights</button>
+            </div>
+
+            <figure class="text-center m-0" style="max-width: 400px; margin: 0 auto;">
+              <div class="ratio ratio-1x1">
+                <canvas id="cgmCanvas" width="400" height="400" style="width:100%; height:100%;"></canvas>
+              </div>
+              <figcaption class="mt-5 text-muted">CGM simulation — give it a go!</figcaption>
+            </figure>
+          </div>
+        </div>
+
+        <!-- Load the simulation script -->
+        <script src="cgm-simulation.js"></script>
+      </div>
+
+      <!-- PUBLICATIONS -->
+      <div class="tab-pane fade" id="pubs" role="tabpanel" aria-labelledby="pubs-tab">
+        <h2 class="mt-2">Papers and Preprints</h2>
         <ol class="ms-4 paper-list">
-          <li> With Sudeshna Bhattacharjee and Evan Sorensen <a href="https://arxiv.org/abs/2505.09604">Exceptional force, uncountably many solutions in the KPZ fixed point</a> <span style="color:rgb(151,30,4)"> arXiv:2505.09604</span>. 2025.</li><br>
-          <li> With Gideon Amir, Christophe Bahadoran and Ellen Saada <a href="https://arxiv.org/abs/2501.19355">Hydrodynamics and relaxation limit for multilane exclusion process and related hyperbolic systems.</a> <span style="color:rgb(151,30,4)"> arXiv:2501.19355</span>. 2025.</li><br>
-          <li> With Kazumasa A. Takeuchi, Jacopo De Nardis, Patrik L. Ferrari and Romain Vasseur <a href="https://arxiv.org/pdf/2406.07150">Partial yet definite emergence of the Kardar-Parisi-Zhang class in isotropic spin chains.</a> <span style="color:rgb(151,30,4)"> Physical Review Journal</span>. 2024.</li><br>
-          <li><a href="https://arxiv.org/abs/2401.00513">Non-existence of three non-coalescing infinite geodesics with the same direction in the directed landscape.</a> <span style="color:rgb(151,30,4)"> arXiv:2401.00513</span>. 2023</li><br>
-          <li> With Timo Seppäläinen and Evan Sorensen <a href="https://arxiv.org/abs/2310.09284">Scaling limit of multi-type invariant measures via the directed landscape.</a> <span style="color:rgb(151,30,4)"> International Mathematics Research Notices</span>. 2024.</li><br>
-          <li> With Timo Seppäläinen and Evan Sorensen <a href="https://arxiv.org/abs/2211.04651">Scaling limit of the TASEP speed process.</a> <span style="color:rgb(151,30,4)"> Ann. Inst. Henri Poincaré Probab. Stat.</span>. 2022.</li><br>
-          <li> With Riddhipratim Basu and Patrik Ferrari <a href="https://arxiv.org/abs/2206.08571">On the exponent governing the correlation decay of the Airy<sub>1</sub> process.</a> <span style="color:rgb(151,30,4)"> Communications in Mathematical Physics</span>. 2022.</li><br>
-          <li> With Timo Seppäläinen and Evan Sorensen <a href="https://arxiv.org/abs/2203.13242">The stationary horizon and semi-infinite geodesics in the directed landscape.</a> <span style="color:rgb(151,30,4)"> Annals of Probability</span>. 2022.</li><br>
-          <li><a href="https://arxiv.org/abs/2110.03808">Diffusive scaling limit of the Busemann process in Last Passage Percolation.</a> <span style="color:rgb(151,30,4)"> Annals of Probability</span>. 2021</li><br>
-          <li> With Gidi Amir, Christophe Bahadoran, Ellen Saada <a href="https://arxiv.org/abs/2105.12974">Invariant measures for multilane exclusion process.</a> <span style="color:rgb(151,30,4)"> Ann. Inst. Henri Poincaré Probab. Stat.</span>. 2021</li><br>
-          <li> With Timo Seppäläinen <a href="https://arxiv.org/abs/2010.11279">Non-existence of bi-infinite polymer Gibbs measures.</a> <span style="color:rgb(151,30,4)"> Electronic Journal of Probability</span>. 2022</li><br>
-          <li> With Timo Seppäläinen <a href="https://arxiv.org/abs/2010.08767">Bounds on the running maximum of a random walk with small drift.</a> <span style="color:rgb(151,30,4)"> ALEA</span>. 2022</li><br>
-          <li> With Patrik L. Ferrari <a href="https://arxiv.org/abs/2008.07844">Universality of the geodesic tree in last passage percolation.</a> <span style="color:rgb(151,30,4)"> Annals of Probability</span>. 2020</li><br>
-          <li> With Marton Balazs, Timo Seppäläinen <a href="https://arxiv.org/abs/2001.03961">Local stationarity of exponential last passage percolation.</a> <span style="color:rgb(151,30,4)"> Probability Theory and Related Fields</span>. 2021</li><br>
-          <li> With Gidi Amir, Patricia Goncalves, James Martin <a href="https://arxiv.org/abs/1911.06504">The TAZRP speed process.</a> <span style="color:rgb(151,30,4)"> Ann. Inst. Henri Poincaré Probab. Stat.</span>. 2019</li><br>
-          <li> With Marton Balazs, Timo Seppäläinen <a href="https://arxiv.org/abs/1909.06883">Non-existence of bi-infinite geodesics in the exponential corner growth model.</a> <span style="color:rgb(151,30,4)"> Forum of Mathematics, Sigma</span>. 2020</li><br>
-          <li><a href="https://people.maths.bris.ac.uk/~di18476/CTRW%20as%20RWRE.pdf">Continuous Time Random Walk as a Random Walk in Random Environment.</a> <span style="color:rgb(151,30,4)"> arXiv:1709.02141</span>. 2018</li><br>
-          <li><a href="https://people.maths.bris.ac.uk/~di18476/FDFPE.pdf">Finite dimensional Fokker-Planck equations for continuous time random walk limits</a> <span style="color:rgb(151,30,4)"> Stochastic Processes and their Applications</span>. 2017</li><br>
-          <li><a href="https://people.maths.bris.ac.uk/~di18476/ACTRWL.pdf" style="color:rgb(153, 0, 0)">Aging Uncoupled Continuous Time Random Walk Limits</a> <span style="color:rgb(151,30,4)"> Electronic Journal of Probability</span>. 2016</li>
+          <li> With Sudeshna Bhattacharjee and Evan Sorensen <a href="https://arxiv.org/abs/2505.09604" target="_blank" rel="noopener">Exceptional force, uncountably many solutions in the KPZ fixed point</a> <span style="color:rgb(151,30,4)"> arXiv:2505.09604</span>. 2025.</li><br>
+          <li> With Gideon Amir, Christophe Bahadoran and Ellen Saada <a href="https://arxiv.org/abs/2501.19355" target="_blank" rel="noopener">Hydrodynamics and relaxation limit for multilane exclusion process and related hyperbolic systems.</a> <span style="color:rgb(151,30,4)"> arXiv:2501.19355</span>. 2025.</li><br>
+          <li> With Kazumasa A. Takeuchi, Jacopo De Nardis, Patrik L. Ferrari and Romain Vasseur <a href="https://arxiv.org/pdf/2406.07150" target="_blank" rel="noopener">Partial yet definite emergence of the Kardar–Parisi–Zhang class in isotropic spin chains.</a> <span style="color:rgb(151,30,4)"> Physical Review Journal</span>. 2024.</li><br>
+          <li><a href="https://arxiv.org/abs/2401.00513" target="_blank" rel="noopener">Non-existence of three non-coalescing infinite geodesics with the same direction in the directed landscape.</a> <span style="color:rgb(151,30,4)"> arXiv:2401.00513</span>. 2023</li><br>
+          <li> With Timo Seppäläinen and Evan Sorensen <a href="https://arxiv.org/abs/2310.09284" target="_blank" rel="noopener">Scaling limit of multi-type invariant measures via the directed landscape.</a> <span style="color:rgb(151,30,4)"> International Mathematics Research Notices</span>. 2024.</li><br>
+          <li> With Timo Seppäläinen and Evan Sorensen <a href="https://arxiv.org/abs/2211.04651" target="_blank" rel="noopener">Scaling limit of the TASEP speed process.</a> <span style="color:rgb(151,30,4)"> Ann. Inst. Henri Poincaré Probab. Stat.</span>. 2022.</li><br>
+          <li> With Riddhipratim Basu and Patrik Ferrari <a href="https://arxiv.org/abs/2206.08571" target="_blank" rel="noopener">On the exponent governing the correlation decay of the Airy<sub>1</sub> process.</a> <span style="color:rgb(151,30,4)"> Communications in Mathematical Physics</span>. 2022.</li><br>
+          <li> With Timo Seppäläinen and Evan Sorensen <a href="https://arxiv.org/abs/2203.13242" target="_blank" rel="noopener">The stationary horizon and semi-infinite geodesics in the directed landscape.</a> <span style="color:rgb(151,30,4)"> Annals of Probability</span>. 2022.</li><br>
+          <li><a href="https://arxiv.org/abs/2110.03808" target="_blank" rel="noopener">Diffusive scaling limit of the Busemann process in Last Passage Percolation.</a> <span style="color:rgb(151,30,4)"> Annals of Probability</span>. 2021</li><br>
+          <li> With Gidi Amir, Christophe Bahadoran, Ellen Saada <a href="https://arxiv.org/abs/2105.12974" target="_blank" rel="noopener">Invariant measures for multilane exclusion process.</a> <span style="color:rgb(151,30,4)"> Ann. Inst. Henri Poincaré Probab. Stat.</span>. 2021</li><br>
+          <li> With Timo Seppäläinen <a href="https://arxiv.org/abs/2010.11279" target="_blank" rel="noopener">Non-existence of bi-infinite polymer Gibbs measures.</a> <span style="color:rgb(151,30,4)"> Electronic Journal of Probability</span>. 2022</li><br>
+          <li> With Timo Seppäläinen <a href="https://arxiv.org/abs/2010.08767" target="_blank" rel="noopener">Bounds on the running maximum of a random walk with small drift.</a> <span style="color:rgb(151,30,4)"> ALEA</span>. 2022</li><br>
+          <li> With Patrik L. Ferrari <a href="https://arxiv.org/abs/2008.07844" target="_blank" rel="noopener">Universality of the geodesic tree in last passage percolation.</a> <span style="color:rgb(151,30,4)"> Annals of Probability</span>. 2020</li><br>
+          <li> With Marton Balazs, Timo Seppäläinen <a href="https://arxiv.org/abs/2001.03961" target="_blank" rel="noopener">Local stationarity of exponential last passage percolation.</a> <span style="color:rgb(151,30,4)"> Probability Theory and Related Fields</span>. 2021</li><br>
+          <li> With Gidi Amir, Patricia Goncalves, James Martin <a href="https://arxiv.org/abs/1911.06504" target="_blank" rel="noopener">The TAZRP speed process.</a> <span style="color:rgb(151,30,4)"> Ann. Inst. Henri Poincaré Probab. Stat.</span>. 2019</li><br>
+          <li> With Marton Balazs, Timo Seppäläinen <a href="https://arxiv.org/abs/1909.06883" target="_blank" rel="noopener">Non-existence of bi-infinite geodesics in the exponential corner growth model.</a> <span style="color:rgb(151,30,4)"> Forum of Mathematics, Sigma</span>. 2020</li><br>
+          <li><a href="https://people.maths.bris.ac.uk/~di18476/CTRW%20as%20RWRE.pdf" target="_blank" rel="noopener">Continuous Time Random Walk as a Random Walk in Random Environment.</a> <span style="color:rgb(151,30,4)"> arXiv:1709.02141</span>. 2018</li><br>
+          <li><a href="https://people.maths.bris.ac.uk/~di18476/FDFPE.pdf" target="_blank" rel="noopener">Finite dimensional Fokker-Planck equations for continuous time random walk limits</a> <span style="color:rgb(151,30,4)"> Stochastic Processes and their Applications</span>. 2017</li><br>
+          <li><a href="https://people.maths.bris.ac.uk/~di18476/ACTRWL.pdf" target="_blank" rel="noopener" style="color:rgb(153, 0, 0)">Aging Uncoupled Continuous Time Random Walk Limits</a> <span style="color:rgb(151,30,4)"> Electronic Journal of Probability</span>. 2016</li>
         </ol>
-		<h2>Contributions</h2>
-		<ul>
-  <li> On the number of infinite geodesics in last passage percolation models. To appear in 'From Particle Systems to Partial Differential Equations'. Proceedings of PSPD XII </li>
-</ul>
-		
+
+        <h2 class="h4 mt-4">Contributions</h2>
+        <ul>
+          <li>On the number of infinite geodesics in last passage percolation models. To appear in “From Particle Systems to Partial Differential Equations”. Proceedings of PSPD XII.</li>
+        </ul>
       </div>
     </div>
-  </body>
-</html>
+  </div>
 
+  <!-- Optional Bootstrap JS (not required thanks to the tiny script below) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+          crossorigin="anonymous"></script>
+
+  <!-- Tiny tab script: works even if Bootstrap JS is blocked. Also syncs URL hash. -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const triggers = Array.from(document.querySelectorAll('[data-bs-toggle="tab"]'));
+      const panes = Array.from(document.querySelectorAll('.tab-pane'));
+
+      function showTab(target) {
+        panes.forEach(p => p.classList.remove('show', 'active'));
+        triggers.forEach(b => { b.classList.remove('active'); b.setAttribute('aria-selected', 'false'); });
+        const pane = document.querySelector(target);
+        const btn = document.querySelector(`[data-bs-target="${target}"]`);
+        if (pane) { pane.classList.add('show', 'active'); }
+        if (btn) { btn.classList.add('active'); btn.setAttribute('aria-selected', 'true'); }
+      }
+
+      function showFromHash() {
+        const hash = location.hash || '#home';
+        showTab(hash);
+      }
+
+      if (!location.hash) history.replaceState(null, '', '#home');
+      showFromHash();
+
+      triggers.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const target = btn.getAttribute('data-bs-target');
+          if (target) {
+            e.preventDefault();
+            history.replaceState(null, '', target);
+            showTab(target);
+          }
+        });
+      });
+
+      window.addEventListener('hashchange', showFromHash);
+    });
+  </script>
+</body>
+</html>
