@@ -15,14 +15,12 @@
     .paper-list { font-size: 0.95rem; }
     figure { margin: 0; text-align: center; }
     figcaption { margin-top: 6px; font-style: italic; color: #555; }
-    .tab-pane { padding-top: 1rem; padding-bottom: 7rem; } /* comfy bottom space */
+    .tab-pane { padding-top: 1rem; }
+    .tab-pane { padding-bottom: 7rem; } /* extra bottom space */
     .nav-tabs .nav-link.active { font-weight: 600; }
-
-    /* Fallback styling so tabs are visible even if Bootstrap CSS fails */
-    .nav-tabs { display: flex; gap: .5rem; border-bottom: 1px solid #dee2e6; }
-    .nav-tabs .nav-link { background: #f8f9fa; border: 1px solid #dee2e6; border-bottom: none;
-      padding: .5rem .75rem; border-top-left-radius: .5rem; border-top-right-radius: .5rem; }
-    .nav-tabs .nav-link.active { background: #fff; }
+	.light-blue {
+  color: #3399ff; /* light blue */
+}
   </style>
 
   <!-- MathJax for equations -->
@@ -58,7 +56,7 @@
     <div class="row">
       <div class="col-sm-4">
         <figure>
-          <img class="img-fluid" src="me.jpeg" alt="Picture of me" />
+          <img class="img-fluid" src="me.jpeg" alt="Portrait of Ofer Busani" />
           <figcaption>Me (up to translation of hairline and a splash of grey).</figcaption>
         </figure>
       </div>
@@ -106,7 +104,7 @@
           </div>
         </div>
 
-        <!-- PhD students (inside HOME tab) -->
+        <!-- PhD students (inside the HOME tab) -->
         <div class="row mt-4">
           <div class="col-md-12">
             <h2 class="h5 mb-2">PhD students</h2>
@@ -115,12 +113,57 @@
         </div>
       </div>
 
-      <!-- WHAT IS KPZ? -->
+      <!-- WHAT IS KPZ? (Simulations / explainer) -->
       <div class="tab-pane fade" id="sims" role="tabpanel" aria-labelledby="sims-tab">
+
+        <!-- Explanatory text -->
         <div class="row mt-2">
           <div class="col-md-12">
+
+            <section id="kpz-overview" style="font-size: 1.25rem;">
+              <h2  class="light-blue">The KPZ Universality Class</h2>
+
+              <p>
+                Many natural processes involve random growth and fluctuation.
+                Think of moss spreading on a rock, frost crystals forming on a window, or a coffee
+                stain drying into irregular patterns. In each case, an <em>interface</em>—the edge
+                between the grown region and the untouched one—evolves over time in a way that is
+                both systematic and random.
+              </p>
+
+              <p>
+                Mathematicians and physicists discovered that a surprisingly broad range of such
+                growth processes behave in a universal way: despite very different
+                microscopic rules, their large-scale shapes and the statistics of their
+                fluctuations fall into the same “family.” This family is called the
+                Kardar–Parisi–Zhang (KPZ) universality class (1986).
+              </p>
+
+              <p>
+                “Universal” here means that once we look on the right space–time scales, very
+                different systems—traffic flow, bacterial colonies, flame fronts, crystal growth,
+                and more—exhibit the same limiting behavior for shape and
+                fluctuations, captured by common mathematical structures.
+              </p>
+
+              <h3  class="light-blue">Why do we need KPZ models?</h3>
+              <p>
+                KPZ models act as a mathematical laboratory for complex random
+                systems. Real-world growth is often too messy to analyze directly, but simplified
+                KPZ-type models capture the essential features while remaining tractable. Studying
+                them helps us:
+              </p>
+              <ul>
+                <li>Predict large-scale behavior of physical, biological, and engineered growth processes.</li>
+                <li>Uncover universal laws that apply across seemingly unrelated systems.</li>
+                <li>Develop tools in probability, analysis, and random matrices that inform other areas of science.</li>
+              </ul>
+
+           
+            </section>
+
             <p style="font-size: 1.25rem;">
-              To get a better feel for the type of problems I’m interested in, let us look at a very classical example:
+              To get a better feel for what a model in the KPZ class is,  let us look at a very classical example:
               the corner growth model (CGM). We place ourselves on the lattice \(\mathbb{Z}^2\), rotated by \(45^\circ\).
               At time zero, we declare some sites to be infected (blue vertices) while the rest remain healthy (black vertices).
               Each site of the lattice is assigned a random weight, such that the weights are independent and identically
@@ -131,7 +174,7 @@
             </p>
 
             <figure class="my-3">
-              <img src="cgmIIust.jpg" alt="The CGM model" class="img-fluid" style="max-width: 800px;">
+              <img src="cgmIIust.jpg" alt="Schematic illustration of the Corner Growth Model" class="img-fluid" style="max-width: 800px;">
               <figcaption>The corner growth model.</figcaption>
             </figure>
 
@@ -145,10 +188,12 @@
           </div>
         </div>
 
+        <!-- Figure + interactive simulation -->
         <div class="row align-items-start g-3 mt-2">
+          <!-- Left: figure -->
           <div class="col-lg-7">
             <figure class="text-center m-0">
-              <img src="CGMscale.png" alt="Simulation of CGM" class="img-fluid">
+              <img src="CGMscale.png" alt="Python simulation of the Corner Growth Model (CGM)" class="img-fluid">
               <figcaption class="text-muted mx-auto" style="max-width: 500px;">
                 A Python simulation of the corner growth model (CGM) with infected boundary conditions at time \(t=1000\).
                 The red curve shows the macroscopic interface that emerges when the system is observed on a large scale.
@@ -156,6 +201,7 @@
             </figure>
           </div>
 
+          <!-- Right: interactive simulation -->
           <div class="col-lg-5">
             <h3>Corner Growth Model Simulation</h3>
             <div class="controls mb-2">
@@ -220,45 +266,37 @@
     </div>
   </div>
 
-  <!-- Optional Bootstrap JS (not required thanks to the tiny script below) -->
+  <!-- Bootstrap 5.3.3 JS (required for tabs) -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
           integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
           crossorigin="anonymous"></script>
 
-  <!-- Tiny tab script: works even if Bootstrap JS is blocked. Also syncs URL hash. -->
+  <!-- Keep tabs in sync with the URL, so Back returns to the same tab -->
   <script>
     document.addEventListener('DOMContentLoaded', function () {
-      const triggers = Array.from(document.querySelectorAll('[data-bs-toggle="tab"]'));
-      const panes = Array.from(document.querySelectorAll('.tab-pane'));
-
-      function showTab(target) {
-        panes.forEach(p => p.classList.remove('show', 'active'));
-        triggers.forEach(b => { b.classList.remove('active'); b.setAttribute('aria-selected', 'false'); });
-        const pane = document.querySelector(target);
-        const btn = document.querySelector(`[data-bs-target="${target}"]`);
-        if (pane) { pane.classList.add('show', 'active'); }
-        if (btn) { btn.classList.add('active'); btn.setAttribute('aria-selected', 'true'); }
-      }
-
-      function showFromHash() {
+      const showFromHash = () => {
         const hash = location.hash || '#home';
-        showTab(hash);
+        const trigger = document.querySelector(`[data-bs-target="${hash}"]`);
+        if (trigger) new bootstrap.Tab(trigger).show();
+      };
+
+      // Default the URL to #home if no hash
+      if (!location.hash) {
+        history.replaceState(null, '', '#home');
       }
 
-      if (!location.hash) history.replaceState(null, '', '#home');
+      // Show correct tab on load
       showFromHash();
 
-      triggers.forEach(btn => {
-        btn.addEventListener('click', (e) => {
-          const target = btn.getAttribute('data-bs-target');
-          if (target) {
-            e.preventDefault();
-            history.replaceState(null, '', target);
-            showTab(target);
-          }
+      // Update the URL when a tab is shown (without adding history entries)
+      document.querySelectorAll('[data-bs-toggle="tab"]').forEach(el => {
+        el.addEventListener('shown.bs.tab', e => {
+          const target = e.target.getAttribute('data-bs-target'); // e.g. "#pubs"
+          if (target) history.replaceState(null, '', target);
         });
       });
 
+      // Handle Back/Forward between hashes
       window.addEventListener('hashchange', showFromHash);
     });
   </script>
