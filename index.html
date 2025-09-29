@@ -16,11 +16,20 @@
     figure { margin: 0; text-align: center; }
     figcaption { margin-top: 6px; font-style: italic; color: #555; }
     .tab-pane { padding-top: 1rem; }
-    .tab-pane { padding-bottom: 7rem; } /* extra bottom space */
+    .tab-pane { padding-bottom: 7rem; }
     .nav-tabs .nav-link.active { font-weight: 600; }
-	.light-blue {
-  color: #3399ff; /* light blue */
-}
+    .light-blue { color: #3399ff; }
+
+    /* Open Positions styling */
+    .positions { margin-top: 1rem; }
+    .position-card {
+      border: 1px solid #e9ecef;
+      border-radius: 1rem;
+      transition: transform .1s ease-in-out, box-shadow .1s ease-in-out;
+    }
+    .position-card:hover { transform: translateY(-2px); box-shadow: 0 .5rem 1rem rgba(0,0,0,.08); }
+    .position-badge { font-size: .8rem; }
+    .position-meta { color: #6c757d; font-size: .95rem; }
   </style>
 
   <!-- MathJax for equations -->
@@ -96,11 +105,44 @@
               I am a Lecturer (assistant professor) at the University of Edinburgh. I am mainly interested in probabilistic models that have strong connections to statistical physics.
               <br> In particular, I am interested in the Kardar–Parisi–Zhang (KPZ) universality class where one can find random growth processes, interacting particle systems, random polymers, stochastic PDEs and many other interesting models.
             </p>
-            <p style="font-size: 1.25rem;">
-              <b>I am looking for a PhD student starting in 2026–27. If you are interested please apply
-                <a href="https://postgraduate.degrees.ed.ac.uk/index.php?r=site/view&id=515" target="_blank" rel="noopener">here</a>
-                and mention in your application that you would like to work with me. The position will be funded by the ERC grant <em>UnivKPZ</em>. The student will work on central open problems in the KPZ class.</b>
-            </p>
+
+            <!-- Open Positions (restyled) -->
+            <section id="open-positions" class="positions">
+              <h2 class="h5 mb-3">Open positions</h2>
+              <p class="mb-3">I will have two openings this year funded by the ERC Starting Grant <em>UnivKPZ</em>.</p>
+
+              <div class="row g-3">
+                <!-- PhD position -->
+                <div class="col-12 col-md-6">
+                  <div class="position-card h-100 p-3">
+                    <div class="d-flex justify-content-between align-items-start mb-2">
+                      <h3 class="h6 m-0">PhD Position (4 years)</h3>
+                      <span class="badge text-bg-light position-badge">Start 2026–27</span>
+                    </div>
+                    
+                    <p class="mb-3">
+                      Interested applicants should apply via the University portal and mention in the application that they'd like to work with me. The student will work on central open problems in the KPZ class.
+                    </p>
+                    <a class="btn btn-primary btn-sm" href="https://postgraduate.degrees.ed.ac.uk/index.php?r=site/view&id=515" target="_blank" rel="noopener" aria-label="Apply for the PhD position (opens in a new tab)">Apply for the PhD</a>
+                  </div>
+                </div>
+
+                <!-- Postdoc position -->
+                <div class="col-12 col-md-6">
+                  <div class="position-card h-100 p-3">
+                    <div class="d-flex justify-content-between align-items-start mb-2">
+                      <h3 class="h6 m-0">Postdoctoral Researcher (3 years)</h3>
+                      <span class="badge text-bg-light position-badge">Start 2026–27</span>
+                    </div>
+                    
+                    <p class="mb-3">
+                      
+                    </p>
+                    <a class="btn btn-primary btn-sm" href="https://elxw.fa.em3.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/13145" target="_blank" rel="noopener" aria-label="Apply for the Postdoctoral Researcher position (opens in a new tab)">Apply for the Postdoc</a>
+                  </div>
+                </div>
+              </div>
+            </section>
           </div>
         </div>
 
@@ -159,7 +201,6 @@
                 <li>Develop tools in probability, analysis, and random matrices that inform other areas of science.</li>
               </ul>
 
-           
             </section>
 
             <p style="font-size: 1.25rem;">
@@ -280,23 +321,19 @@
         if (trigger) new bootstrap.Tab(trigger).show();
       };
 
-      // Default the URL to #home if no hash
       if (!location.hash) {
         history.replaceState(null, '', '#home');
       }
 
-      // Show correct tab on load
       showFromHash();
 
-      // Update the URL when a tab is shown (without adding history entries)
       document.querySelectorAll('[data-bs-toggle="tab"]').forEach(el => {
         el.addEventListener('shown.bs.tab', e => {
-          const target = e.target.getAttribute('data-bs-target'); // e.g. "#pubs"
+          const target = e.target.getAttribute('data-bs-target');
           if (target) history.replaceState(null, '', target);
         });
       });
 
-      // Handle Back/Forward between hashes
       window.addEventListener('hashchange', showFromHash);
     });
   </script>
