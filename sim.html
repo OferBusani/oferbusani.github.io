@@ -1,0 +1,192 @@
+<html>
+		
+	<head>
+		<style>
+
+			body {
+				margin: auto;
+				max-width: 600px;
+			}
+
+			canvas {
+				max-width: 100%;
+				border: 1px solid black;
+			}
+		</style>
+	</head>
+
+
+	<body>
+		<center>
+			<h1>Last Passage Percolation on the Grid</h1>
+			<canvas id="canvas" width="2000" height="2000"></canvas>
+			<br><br>
+			<label> n = 
+				<input id="n" type="number" value="100" step="1"></input>
+			</label>
+			<button onclick="run()">run x1</button>
+			<button onclick="run_times(10)">run x10</button>
+			<button onclick="run_times(100)">run x100</button>
+		</center>
+	</body>
+
+	<script>
+
+		let canvas = document.getElementById("canvas");
+		let ctx = canvas.getContext('2d');
+
+		let size = canvas.width;
+		
+		let last_n = null;
+		let n = 100;
+
+		function rand() {
+			// return Math.round(Math.random() * 10) / 10;
+			return Math.random();
+		}
+
+		function arr(a, c) {
+			return [...Array(a)].map(x => c());
+		}
+
+		function two_dim_arr(a, b, c) {
+			return arr(a, () => arr(b, c));
+		}
+
+		function get_path() {
+			let N = n + 1;
+			// create grid of random weights
+			let rnd_grid = two_dim_arr(N, N, () => new Object());
+			for (let r = 0; r < N; r++) {
+				for (let c = 0; c < N; c++) {
+					if (r < N - 1) {
+						rnd_grid[r][c]['D'] = rand();
+					}
+					if (c < N - 1) {
+						rnd_grid[r][c]['R'] = rand();
+					}
+				}
+			}
+
+			let sum_grid = two_dim_arr(N, N, () => 0);
+			let dir_grid = two_dim_arr(N, N, () => ' ');
+			
+			// base cases
+			for (let i = 1; i < N; i++) {
+				dir_grid[0][i] = "L";
+				dir_grid[i][0] = "U";
+				sum_grid[0][i] = sum_grid[0][i - 1] + rnd_grid[0][i - 1]['R'];
+				sum_grid[i][0] = sum_grid[i - 1][0] + rnd_grid[i - 1][0]['D'];
+			}
+
+			// fill in rest
+			for (let r = 1; r < N; r++) {
+				for (let c = 1; c < N; c++) {
+					let u_sum = sum_grid[r - 1][c] + rnd_grid[r - 1][c]['D'];
+					let l_sum = sum_grid[r][c - 1] + rnd_grid[r][c - 1]['R'];
+					if (u_sum > l_sum) {
+						sum_grid[r][c] = u_sum;
+						dir_grid[r][c] = 'U';
+					} else {
+						sum_grid[r][c] = l_sum;
+						dir_grid[r][c] = 'L';
+					}
+				}
+			}
+
+			// recover path from dir_grid
+			let path = [];
+			let cr = N - 1;
+			let cc = N - 1;
+			while (cr + cc > 0) {
+				if (dir_grid[cr][cc] == 'L') {
+					path.push(0);
+					cc--;
+				} else {
+					path.push(1);
+					cr--;
+				}
+			}
+			// note: the algorithm creates a path from the bottom right left to the top left, but then I use it as a path from the top left to the bottom right
+			return path;
+		}
+
+
+		function draw_grid() {
+			ctx.strokeStyle = "lightgrey";
+			ctx.lineWidth = 0.5;
+			for (let i = 0; i < n + 1; i++) {
+				ctx.beginPath();
+				ctx.moveTo(0, i * size / n);
+				ctx.lineTo(size, i * size / n);
+				ctx.stroke();
+				ctx.beginPath();
+				ctx.moveTo(i * size / n, 0);
+				ctx.lineTo(i * size / n, size);
+				ctx.stroke();
+			}
+		}
+
+		function run() {
+			n = Number(document.getElementById('n').value);
+
+			if (n != last_n) {
+				ctx.clearRect(0, 0, size, size);
+				draw_grid();
+				last_n = n;
+			}
+
+			ctx.strokeStyle = "green";
+			let path = get_path();
+			ctx.lineWidth = 1;
+			let curr = [0, 0];
+			ctx.beginPath();
+			ctx.moveTo(0, 0);
+			for (let j = 0; j < 2 * n - 1; j++) {
+				curr[path[j]] += 1;
+				ctx.lineTo(
+					curr[0] * size / n, 
+					curr[1] * size / n
+				);
+			}
+			ctx.lineTo(size, size);
+			ctx.stroke();
+		}
+
+		function run_times(k) {
+			// let count = 0;
+			// let id = setInterval(function() {
+			// 	if (count >= k) {
+			// 		clearInterval(id);
+			// 	}
+			// 	run();
+			// 	count += 1;
+			// }, 10);
+			for (let i = 0; i < k; i++) {
+				run();
+			}
+		}
+
+		
+
+
+
+
+
+
+
+
+
+
+		
+
+
+	</script>
+</html>
+
+
+
+
+
+
+
